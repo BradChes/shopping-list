@@ -13,8 +13,6 @@ An application that lets people create a shopping list by adding items to a tabl
 - Swipe to delete gesture
 - Text input in alerts
 - Closures
-- NSRange
-
 
 ## Demonstration
 Small demonstration as to what the application does when on device.

@@ -37,6 +37,17 @@ class ViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            items.remove(at: indexPath.item)
+            tableView.reloadData()
+        }
+    }
+    
     @objc private func addItem() {
         let ac = UIAlertController(title: "Enter Item", message: nil, preferredStyle: .alert)
         ac.addTextField()

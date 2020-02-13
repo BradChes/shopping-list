@@ -38,7 +38,18 @@ class ViewController: UITableViewController {
     }
     
     @objc private func addItem() {
+        let ac = UIAlertController(title: "Enter Item", message: nil, preferredStyle: .alert)
+        ac.addTextField()
         
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak self, weak ac] _ in
+            guard let submission = ac?.textFields?[0].text else { return }
+            self?.items.insert(submission, at: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
+            self?.tableView.insertRows(at: [indexPath], with: .automatic)
+        }
+        
+        ac.addAction(submitAction)
+        present(ac, animated: true)
     }
 
 }

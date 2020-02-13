@@ -19,10 +19,10 @@ class ViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearList))
         
-        toolbarItems = [spacer, addButton]
+        toolbarItems = [clearButton, spacer, addButton]
           
         navigationController?.isToolbarHidden = false
     }
@@ -35,6 +35,17 @@ class ViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Item", for: indexPath)
         cell.textLabel?.text = items[indexPath.row]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            items.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     @objc private func addItem() {
@@ -51,6 +62,9 @@ class ViewController: UITableViewController {
         ac.addAction(submitAction)
         present(ac, animated: true)
     }
-
+    
+    @objc private func clearList() {
+        items.removeAll(keepingCapacity: true)
+        tableView.reloadData()
+    }
 }
-

@@ -43,8 +43,8 @@ class ViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == .delete) {
-            items.remove(at: indexPath.item)
-            tableView.reloadData()
+            items.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     

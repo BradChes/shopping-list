@@ -19,10 +19,10 @@ class ViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItem))
+        let clearButton = UIBarButtonItem(title: "Clear", style: .plain, target: self, action: #selector(clearList))
         
-        toolbarItems = [spacer, addButton]
+        toolbarItems = [clearButton, spacer, addButton]
           
         navigationController?.isToolbarHidden = false
     }
@@ -62,6 +62,9 @@ class ViewController: UITableViewController {
         ac.addAction(submitAction)
         present(ac, animated: true)
     }
-
+    
+    @objc private func clearList() {
+        items.removeAll(keepingCapacity: true)
+        tableView.reloadData()
+    }
 }
-
